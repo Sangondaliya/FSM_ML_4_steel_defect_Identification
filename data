@@ -1,0 +1,73 @@
+import csv
+import numpy as np 
+
+b,c=[],[]
+with open("train.csv","r") as t:
+    x=t.read()
+    #print(x)
+    x=x.replace("\n",",")
+    a=(x.split(","))
+
+    for i in range(len(a)):
+        if i%3==1:
+            b.append(a[i])
+        elif i%3==2:
+            c.append(a[i])
+#print(b,c,a[1])
+# with open(r"C:\other\FSM\level_3_ml\code\newtrain.csv","x") as nt:
+#     for i in range(len(c)):
+#         s=c[i]+"\n"
+#         nt.write(s)
+
+# with open(r"C:\other\FSM\level_3_ml\code\newtrain.csv","r") as n1t:
+#     nx=n1t.read()
+#     #print(nx[1])
+#     a=nx.split("\n")
+
+
+# with open(r"C:\other\FSM\level_3_ml\code\finaltrain.csv","+x") as ft:
+#     for i in range(len(a)):
+#         d=a[i].split(" ")
+#         for j in range(len(d)):
+#             if j==0:
+#                 s=d[0]
+#             elif d[j]=="":
+#                 pass
+#             else:
+#                 s=","+d[j]
+            
+#             ft.write(s)
+#         ft.write("\n")    
+      
+# print(a[203])
+ 
+with open ("finaltrain.csv","r") as ftr:
+    xfr=ftr.read()
+    p=xfr.split("\n")
+    t=0
+with open (r"C:\other\FSM\level_3_ml\code\finaltrain1.csv","w") as f1:
+        
+    for i in range(len(p)):
+        t+=1
+        r=[]
+        q=p[i].split(",")
+        for j in range(len(q)):
+            if j%2==0:
+                x=int(q[j])
+                y=int(q[j+1])
+                #print("x",x,"y",y)
+            sum=[]
+            num=x
+            while(num<=x+y):
+                #num=num+","
+                sum.append(num)
+                num+=1
+            r+=sum
+        f1.write(str(r))   
+    f1.write("\n")                 
+## print(t)
+                
+
+# #print(xfr[1])
+
+
