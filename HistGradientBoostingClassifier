@@ -1,0 +1,28 @@
+import numpy as np
+import pandas as pd
+from sklearn import model_selection
+from sklearn.metrics import confusion_matrix
+from sklearn.experimental import enable_hist_gradient_boosting
+from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+df=pd.read_csv('f.csv')
+df.info()
+df=df.dropna()
+Xtrain, Xtest, ytrain, ytest = model_selection.train_test_split(df.loc[:,'2':], df.loc[:,'1':'2'],test_size=0.3, random_state=42)
+gbc=HistGradientBoostingClassifier(learning_rate=0.01, max_iter=2000, max_leaf_nodes=6, validation_fraction=0.2,n_iter_no_change=15, random_state=42).fit(Xtrain,ytrain)
+hardpredtst=gbc.predict(Xtest)
+a = confusion_matrix(ytest,hardpredtst)
+print(a)
+ 
+print('\nAccuracy: {:.2f}\n'.format(accuracy_score(ytest, hardpredtst)))
+print('Micro Precision: {:.2f}'.format(precision_score(ytest, hardpredtst, average='micro')))
+print('Micro Recall: {:.2f}'.format(recall_score(ytest, hardpredtst, average='micro')))
+print('Micro F1-score: {:.2f}\n'.format(f1_score(ytest, hardpredtst, average='micro')))
+ 
+print('Macro Precision: {:.2f}'.format(precision_score(ytest, hardpredtst, average='macro')))
+print('Macro Recall: {:.2f}'.format(recall_score(ytest, hardpredtst, average='macro')))
+print('Macro F1-score: {:.2f}\n'.format(f1_score(ytest, hardpredtst, average='macro')))
+ 
+print('Weighted Precision: {:.2f}'.format(precision_score(ytest, hardpredtst, average='weighted')))
+print('Weighted Recall: {:.2f}'.format(recall_score(ytest, hardpredtst, average='weighted')))
+print('Weighted F1-score: {:.2f}'.format(f1_score(ytest, hardpredtst, average='weighted')))
